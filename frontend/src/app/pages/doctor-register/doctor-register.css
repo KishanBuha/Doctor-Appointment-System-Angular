@@ -1,0 +1,67 @@
+/* Soft background with subtle dot pattern */
+.minimal-bg {
+    background-color: #f8fafc;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
+.login-card {
+    background-color: #ffffff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01) !important;
+}
+
+/* Custom Floating Labels */
+.custom-floating .form-control,
+.custom-floating .form-select {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    height: 60px;
+    font-size: 1rem;
+    color: #1e293b;
+    transition: all 0.2s ease-in-out;
+    background-color: #fff;
+}
+
+/* Dropdown Specific Fix */
+.custom-floating .form-select {
+    padding-top: 1.625rem; /* Text ne niche lava mate */
+    padding-bottom: 0.625rem;
+}
+
+.custom-floating .form-control:focus,
+.custom-floating .form-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+    outline: none;
+}
+
+/* Label Styling */
+.custom-floating label {
+    padding-left: 1.25rem;
+    color: #64748b;
+    display: flex;
+    align-items: center;
+}
+
+/* Button Styling */
+.login-btn {
+    background-color: #2563eb;
+    border: none;
+    border-radius: 12px !important;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.2);
+}
+
+.login-btn:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.3);
+}
+
+.hover-primary {
+    transition: color 0.2s;
+}
+
+.hover-primary:hover {
+    color: #2563eb !important;
+}

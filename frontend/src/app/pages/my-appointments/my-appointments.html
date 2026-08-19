@@ -1,0 +1,98 @@
+<div class="container py-4">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h4 class="fw-bold text-dark mb-1">My Appointments</h4>
+            <p class="text-muted small mb-0">Track your upcoming and past medical visits</p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-primary rounded-pill px-4 shadow-sm fw-bold" routerLink="/doctors">
+                <i class="bi bi-plus-lg me-2"></i>New Booking
+            </button>
+        </div>
+    </div>
+
+    <div class="content-card">
+        
+        <div class="page-header">
+            <h6 class="fw-bold text-secondary text-uppercase small ls-1 mb-0">History List</h6>
+            <span class="badge bg-white text-secondary border px-3 py-1 rounded-pill shadow-sm">
+                Total: {{ appointments.length }}
+            </span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4">Doctor Details</th>
+                        <th>Date & Time</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of appointments">
+                        
+                        <td class="ps-4">
+                            <div class="doc-info">
+                                <img [src]="item.docData?.image || 'assets/default-doctor.png'" class="doc-img">
+                                <div>
+                                    <div class="fw-bold text-dark">Dr. {{ item.docData?.name }}</div>
+                                    <small class="text-muted">{{ item.docData?.speciality }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="fw-bold text-dark small mb-1">{{ item.slotDate }}</div>
+                            <div class="badge bg-light text-secondary border fw-bold px-2 py-1">
+                                <i class="bi bi-clock me-1"></i>{{ item.slotTime }}
+                            </div>
+                        </td>
+
+                        <td>
+                            <span *ngIf="item.cancelled" class="status-badge status-cancelled">
+                                <i class="bi bi-x-circle-fill"></i> Cancelled
+                            </span>
+                            
+                            <span *ngIf="item.isCompleted" class="status-badge status-completed">
+                                <i class="bi bi-check-circle-fill"></i> Completed
+                            </span>
+                            
+                            <span *ngIf="!item.cancelled && !item.isCompleted" class="status-badge status-pending">
+                                <i class="bi bi-hourglass-split"></i> Booked
+                            </span>
+                        </td>
+
+                        <td class="text-end pe-4">
+                            <button *ngIf="!item.cancelled && !item.isCompleted" 
+                                    class="btn btn-cancel shadow-sm" 
+                                    (click)="cancelAppointment(item._id)" 
+                                    title="Cancel Booking">
+                                <i class="bi bi-x-lg me-1"></i> Cancel
+                            </button>
+                            
+                            <span *ngIf="item.cancelled || item.isCompleted" class="text-muted small fst-italic opacity-50">
+                                No Actions
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="appointments.length === 0">
+                        <td colspan="4" class="text-center py-5">
+                            <div class="opacity-50 mb-2">
+                                <i class="bi bi-calendar-x display-4 text-secondary"></i>
+                            </div>
+                            <h5 class="fw-bold text-muted">No appointments found</h5>
+                            <p class="small text-muted">Book your first appointment with our experts.</p>
+                            <button class="btn btn-outline-primary rounded-pill px-4 mt-3" routerLink="/doctors">
+                                Find a Doctor
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

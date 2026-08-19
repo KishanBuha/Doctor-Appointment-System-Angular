@@ -1,0 +1,175 @@
+/* Page Background */
+:host {
+    display: block;
+    background-color: #f1f5f9;
+    min-height: 100vh;
+    padding-bottom: 2rem;
+}
+
+/* 1. Hero Welcome Section */
+.welcome-banner {
+    background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
+    color: white;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-decoration {
+    position: absolute;
+    right: -20px;
+    bottom: -40px;
+    font-size: 10rem;
+    color: rgba(255, 255, 255, 0.05);
+    transform: rotate(-15deg);
+}
+
+/* 2. Stats Cards */
+.stat-card {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0,0,0,0.03);
+    height: 100%;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.stat-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1.2;
+}
+
+.stat-label {
+    color: #64748b;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Accent Colors */
+.accent-cyan { background: #ecfeff; color: #06b6d4; }
+.accent-purple { background: #f3e8ff; color: #a855f7; }
+.accent-rose { background: #fff1f2; color: #f43f5e; }
+
+/* 3. Recent Appointments Table */
+.table-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid rgba(0,0,0,0.03);
+    overflow: hidden;
+    height: 100%;
+}
+
+.table-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #f1f5f9;
+    background: white;
+}
+
+.custom-table th {
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.custom-table td {
+    padding: 1rem 1.5rem;
+    vertical-align: middle;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.patient-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #f0f9ff;
+    color: #0284c7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+/* 4. Quick Actions (Updated for Horizontal Layout) */
+.action-btn {
+    display: flex;
+    flex-direction: row; /* Horizontal Layout */
+    align-items: center;
+    justify-content: flex-start;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    width: 100%;
+}
+
+.action-btn:hover {
+    border-color: #0d9488;
+    background: #f0fdfa;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.action-icon {
+    font-size: 2rem;
+    margin-right: 1.5rem; /* Gap between icon and text */
+    margin-bottom: 0;
+    color: #0d9488;
+}
+
+.action-label {
+    color: #1e293b;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Status Badges */
+.badge-status {
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.status-pending { background: #fff7ed; color: #ea580c; border: 1px solid #ffedd5; }
+.status-done { background: #f0fdf4; color: #16a34a; border: 1px solid #dcfce7; }
+.status-cancel { background: #fef2f2; color: #dc2626; border: 1px solid #fee2e2; }

@@ -1,0 +1,103 @@
+/* Page Layout */
+:host {
+  display: block;
+  background-color: #f8fafc; /* Consistent light background */
+  min-height: 100vh;
+}
+
+/* Main Content Card */
+.content-card {
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+/* Header Section */
+.page-header {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Table Design */
+.table thead th {
+  background-color: #f8fafc;
+  color: #64748b;
+  font-weight: 600;
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e2e8f0;
+  text-transform: uppercase;
+}
+
+.table tbody tr {
+  transition: all 0.2s ease;
+}
+
+.table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+/* Avatar Styling */
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  object-fit: cover;
+  background-color: #eff6ff;
+  color: #3b82f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-right: 12px;
+}
+
+.doc-icon {
+  width: 35px;
+  height: 35px;
+  background: #f0fdf4;
+  color: #16a34a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* Status Badges */
+.status-badge {
+  padding: 0.4rem 0.8rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-cancelled { background: #fef2f2; color: #ef4444; border: 1px solid #fecaca; }
+.status-completed { background: #ecfdf5; color: #059669; border: 1px solid #a7f3d0; }
+.status-pending { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+
+/* Cancel Button */
+.btn-cancel {
+  color: #ef4444;
+  background: #fff;
+  border: 1px solid #fee2e2;
+  border-radius: 8px;
+  padding: 0.3rem 0.6rem;
+  transition: all 0.2s;
+}
+
+.btn-cancel:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  transform: translateY(-1px);
+}

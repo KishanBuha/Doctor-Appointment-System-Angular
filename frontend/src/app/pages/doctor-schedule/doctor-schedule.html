@@ -1,0 +1,111 @@
+<div class="container py-4">
+    
+    <div class="mb-4">
+        <h4 class="fw-bold text-dark mb-1">Availability Management</h4>
+        <p class="text-muted small mb-0">Set your working hours and available slots</p>
+    </div>
+
+    <div class="content-card bg-white p-4">
+        
+        <ul class="nav nav-pills mb-4 border-bottom pb-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-date-tab" data-bs-toggle="pill" data-bs-target="#pills-date" type="button" role="tab">
+                    <i class="bi bi-calendar-date me-2"></i>Specific Date
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-week-tab" data-bs-toggle="pill" data-bs-target="#pills-week" type="button" role="tab">
+                    <i class="bi bi-calendar-week me-2"></i>Weekly Schedule
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            
+            <div class="tab-pane fade show active" id="pills-date" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-md-4 border-end">
+                        <label class="form-label">Select Date</label>
+                        <input type="date" class="form-control mb-3" [(ngModel)]="selectedDate" [min]="todayDate">
+                        
+                        <div class="bg-light p-3 rounded-3 mt-3">
+                            <small class="text-muted d-block mb-1"><i class="bi bi-info-circle me-1"></i>Note:</small>
+                            <p class="small mb-0 text-secondary">
+                                Updates made here will only affect the selected specific date.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 ps-md-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <label class="form-label mb-0">Available Time Slots</label>
+                            <button class="btn btn-sm text-primary fw-bold" (click)="selectAll()">Select All</button>
+                        </div>
+
+                        <div class="row g-2 mb-4">
+                            <div class="col-6 col-sm-4 col-md-3" *ngFor="let slot of allTimeSlots">
+                                <button class="slot-btn" 
+                                        [class.selected]="isSlotSelected(slot)"
+                                        (click)="toggleSlot(slot)">
+                                    {{ slot }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3 pt-3 border-top">
+                            <button class="btn btn-primary" (click)="saveSchedule()">
+                                <i class="bi bi-check-lg me-1"></i> Save Changes
+                            </button>
+                            <button class="btn btn-outline-danger" (click)="resetSelection()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="pills-week" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-md-4 border-end">
+                        <label class="form-label">Starting From</label>
+                        <input type="date" class="form-control mb-3" [(ngModel)]="weekStartDate" [min]="todayDate">
+                        
+                        <div class="bg-light p-3 rounded-3 mt-3 border border-primary border-opacity-10 bg-primary bg-opacity-10">
+                            <small class="text-primary fw-bold d-block mb-1"><i class="bi bi-repeat me-1"></i>Bulk Update</small>
+                            <p class="small mb-0 text-dark opacity-75">
+                                This will apply the selected slots to <strong>all 7 days</strong> starting from the selected date.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-8 ps-md-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <label class="form-label mb-0">Standard Daily Slots</label>
+                            <button class="btn btn-sm text-primary fw-bold" (click)="selectAll()">Select All</button>
+                        </div>
+
+                        <div class="row g-2 mb-4">
+                            <div class="col-6 col-sm-4 col-md-3" *ngFor="let slot of allTimeSlots">
+                                <button class="slot-btn" 
+                                        [class.selected]="isSlotSelected(slot)"
+                                        (click)="toggleSlot(slot)">
+                                    {{ slot }}
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-3 pt-3 border-top">
+                            <button class="btn btn-primary" (click)="saveWeeklySchedule()">
+                                <i class="bi bi-calendar-plus me-1"></i> Apply for Week
+                            </button>
+                            <button class="btn btn-outline-danger" (click)="resetSelection()">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="container py-4">
+    <div class="row mb-4 align-items-center">
+        <div class="col-md-8">
+            <h3 class="fw-bold text-dark"><i class="bi bi-wallet2 me-2 text-success"></i>Revenue & Earnings</h3>
+            <p class="text-muted">Track your financial performance from confirmed consultations.</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="card border-0 shadow-sm bg-success text-white p-3 rounded-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="opacity-75">Total Net Earnings</small>
+                        <h2 class="fw-bold mb-0">₹{{ totalEarnings }}</h2>
+                    </div>
+                    <i class="bi bi-currency-rupee fs-1 opacity-25"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0 rounded-4 overflow-hidden">
+        <div class="card-header bg-white p-3 border-bottom d-flex justify-content-between align-items-center">
+            <span class="fw-bold"><i class="bi bi-clock-history me-1"></i> Payment History</span>
+            <button class="btn btn-sm btn-outline-primary rounded-pill px-3" (click)="loadRevenue()">
+                <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+            </button>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light text-secondary small text-uppercase fw-bold">
+                    <tr>
+                        <th class="ps-4 py-3">Patient Name</th>
+                        <th class="py-3">Date & Time</th>
+                        <th class="py-3">Fee Collected</th>
+                        <th class="py-3">Payment Mode</th>
+                        <th class="text-end pe-4 py-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let record of revenueRecords" class="border-bottom">
+                        <td class="ps-4 py-3">
+                            <div class="fw-bold text-dark">{{ record.userData?.name }}</div>
+                            <small class="text-muted">{{ record.userData?.email }}</small>
+                        </td>
+                        <td class="py-3 text-muted">
+                            <div class="small fw-bold text-dark"><i class="bi bi-calendar-event me-1"></i> {{ record.slotDate }}</div>
+                            <div class="small text-muted"><i class="bi bi-clock me-1"></i> {{ record.slotTime }}</div>
+                        </td>
+                        <td class="py-3 fw-bold text-success">
+                            ₹{{ record.amount }}
+                        </td>
+                        <td class="py-3">
+                            <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3">
+                                <i class="bi bi-cash me-1"></i> Cash to Doctor
+                            </span>
+                        </td>
+                        <td class="text-end pe-4 py-3">
+                            <span class="badge bg-success rounded-pill px-3 py-2">Paid</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="revenueRecords.length === 0">
+                        <td colspan="5" class="text-center py-5">
+                            <i class="bi bi-currency-rupee fs-1 text-muted opacity-25"></i>
+                            <h6 class="text-muted mt-2">No earnings recorded yet.</h6>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

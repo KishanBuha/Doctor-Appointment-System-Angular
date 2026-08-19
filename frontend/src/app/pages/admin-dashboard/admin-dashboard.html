@@ -1,0 +1,180 @@
+<div class="container py-4">
+    
+    <div class="welcome-banner p-4 p-md-5 mb-5 shadow-lg">
+        <div class="position-relative z-1">
+            <h2 class="fw-bold mb-2">Dashboard Overview</h2>
+            <p class="mb-0 opacity-75 fs-5">Welcome back, Admin! Here's what's happening today.</p>
+            <div class="mt-4 d-flex gap-3">
+                <div class="d-flex align-items-center gap-2 bg-white bg-opacity-10 px-3 py-2 rounded-3 backdrop-blur">
+                    <i class="bi bi-calendar-event"></i>
+                    <span>{{ currentDate | date:'fullDate' }}</span>
+                </div>
+            </div>
+        </div>
+        <i class="bi bi-bar-chart-fill banner-decoration"></i>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="stat-card shadow-sm">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-label mb-2">Total Doctors</div>
+                        <div class="stat-value">{{ stats.doctors }}</div>
+                    </div>
+                    <div class="stat-icon accent-blue">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+                </div>
+                <div class="mt-3 text-muted small">
+                    <i class="bi bi-arrow-up-right text-success me-1"></i>
+                    <span class="text-success fw-bold">Active</span> specialists
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card shadow-sm">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-label mb-2">Total Patients</div>
+                        <div class="stat-value">{{ stats.patients }}</div>
+                    </div>
+                    <div class="stat-icon accent-green">
+                        <i class="bi bi-people"></i>
+                    </div>
+                </div>
+                <div class="mt-3 text-muted small">
+                    <i class="bi bi-check-circle text-success me-1"></i>
+                    <span class="text-success fw-bold">Verified</span> accounts
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="stat-card shadow-sm">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="stat-label mb-2">Appointments</div>
+                        <div class="stat-value">{{ stats.appointments }}</div>
+                    </div>
+                    <div class="stat-icon accent-orange">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+                </div>
+                <div class="mt-3 text-muted small">
+                    <i class="bi bi-clock-history text-warning me-1"></i>
+                    <span class="text-warning fw-bold">Processing</span> bookings
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        
+        <div class="col-lg-8">
+            <div class="table-card shadow-sm h-100">
+                <div class="table-header d-flex justify-content-between align-items-center">
+                    <h5 class="fw-bold mb-0 text-dark">
+                        <i class="bi bi-clock-history text-primary me-2"></i>Recent Bookings
+                    </h5>
+                    <button class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" routerLink="/admin-appointments">
+                        View All
+                    </button>
+                </div>
+                
+                <div class="table-responsive">
+                    <table class="table custom-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of stats.latestAppointments">
+                                <td>
+                                    <div class="user-info">
+                                        <div class="avatar-circle">
+                                            {{ item.userData?.name?.charAt(0).toUpperCase() }}
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">{{ item.userData?.name }}</div>
+                                            <small class="text-muted" style="font-size: 0.75rem;">{{ item.userData?.email }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="text-primary fw-semibold small">Dr. {{ item.docData?.name }}</span>
+                                </td>
+                                <td class="text-muted small fw-medium">
+                                    {{ item.slotDate }}
+                                </td>
+                                <td>
+                                    <span class="badge-status"
+                                          [ngClass]="{
+                                              'status-cancel': item.cancelled,
+                                              'status-done': item.isCompleted,
+                                              'status-pending': !item.cancelled && !item.isCompleted
+                                          }">
+                                        <i class="bi" [ngClass]="item.cancelled ? 'bi-x' : (item.isCompleted ? 'bi-check' : 'bi-hourglass-split')"></i>
+                                        {{ item.cancelled ? 'Cancelled' : (item.isCompleted ? 'Done' : 'Pending') }}
+                                    </span>
+                                </td>
+                            </tr>
+                            
+                            <tr *ngIf="stats.latestAppointments?.length === 0">
+                                <td colspan="4" class="text-center py-5">
+                                    <div class="text-muted opacity-50 mb-2"><i class="bi bi-inbox fs-1"></i></div>
+                                    <p class="text-muted small mb-0">No recent bookings found.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="d-flex flex-column gap-3 h-100">
+                
+                <h6 class="fw-bold text-secondary text-uppercase small ls-1 mb-0">Quick Actions</h6>
+                
+                <div class="row g-3 h-100">
+                    <div class="col-6">
+                        <a routerLink="/admin-doctors" class="action-btn shadow-sm">
+                            <i class="bi bi-person-badge-fill action-icon"></i>
+                            <span class="action-label">Doctors</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a routerLink="/admin-patients" class="action-btn shadow-sm">
+                            <i class="bi bi-people-fill action-icon text-success"></i>
+                            <span class="action-label">Patients</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a routerLink="/admin-appointments" class="action-btn shadow-sm">
+                            <i class="bi bi-calendar-range-fill action-icon text-warning"></i>
+                            <span class="action-label">Bookings</span>
+                        </a>
+                    </div>
+                    <div class="col-6">
+                        <a routerLink="/admin-register" class="action-btn shadow-sm">
+                            <i class="bi bi-shield-lock-fill action-icon text-dark"></i>
+                            <span class="action-label">Add Admin</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-primary bg-opacity-10 rounded-4 p-4 mt-auto border border-primary border-opacity-10 text-center">
+                    <h6 class="fw-bold text-primary mb-1">System Healthy</h6>
+                    <p class="text-muted small mb-0">All services are running smoothly.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+<div class="container py-4">
+    
+    <div class="page-header shadow-sm d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h4 class="fw-bold text-dark mb-1">Medical Specialists</h4>
+            <p class="text-muted small mb-0">Manage doctor profiles, visibility & details</p>
+        </div>
+        
+        <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold">
+                Total: {{ doctors.length }}
+            </span>
+            <button class="btn btn-primary rounded-pill px-4 py-2 fw-bold shadow-sm" routerLink="/doctor-register">
+                <i class="bi bi-plus-lg me-2"></i>Add New Doctor
+            </button>
+        </div>
+    </div>
+
+    <div class="content-card shadow-sm">
+        
+        <div class="p-4 border-bottom d-flex align-items-center justify-content-between bg-white">
+            <h6 class="fw-bold text-secondary mb-0 text-uppercase small ls-1">Doctor Directory</h6>
+            
+            <div class="search-input-group d-flex align-items-center" style="width: 300px;">
+                <i class="bi bi-search search-icon me-2"></i>
+                <input type="text" class="form-control search-input p-0" 
+                       placeholder="Search by name..." 
+                       [(ngModel)]="searchQuery" 
+                       (keyup)="filterDoctors()">
+            </div>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4 py-3">DOCTOR PROFILE</th>
+                        <th class="py-3">EXPERTISE</th>
+                        <th class="py-3">CONTACT INFO</th>
+                        <th class="py-3">STATUS</th>
+                        <th class="text-end pe-4 py-3">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of filteredDoctors">
+                        <td class="ps-4 py-3">
+                            <div class="d-flex align-items-center">
+                                <img [src]="row.image || 'https://api.dicebear.com/8.x/initials/svg?seed=' + row.name" 
+                                     class="doctor-avatar me-3">
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0">Dr. {{ row.name }}</h6>
+                                    <small class="text-muted" *ngIf="row.degree">{{ row.degree }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="py-3">
+                            <span class="badge bg-light text-dark border px-2 py-1 rounded-2 mb-1">
+                                {{ row.speciality || row.specialization || 'General' }}
+                            </span>
+                            <div class="small text-muted fw-semibold mt-1">
+                                {{ row.experience || 0 }} Years Exp.
+                            </div>
+                        </td>
+
+                        <td class="py-3">
+                            <div class="d-flex align-items-center text-muted small fw-medium">
+                                <i class="bi bi-envelope-fill me-2 text-primary opacity-50"></i> 
+                                {{ row.email }}
+                            </div>
+                        </td>
+
+                        <td class="py-3">
+                            <div [class]="row.available === false ? 'status-badge status-hidden' : 'status-badge status-visible'">
+                                <i class="bi" [class]="row.available === false ? 'bi-eye-slash-fill' : 'bi-check-circle-fill'"></i>
+                                {{ row.available === false ? 'Hidden' : 'Active' }}
+                            </div>
+                        </td>
+
+                        <td class="text-end pe-4 py-3">
+                            <button class="btn btn-sm btn-action" 
+                                    [ngClass]="row.available === false ? 'btn-outline-success' : 'btn-outline-secondary'"
+                                    (click)="toggleVisibility(row)"
+                                    title="Toggle Visibility">
+                                <i class="bi me-1" [ngClass]="row.available === false ? 'bi-eye' : 'bi-eye-slash'"></i>
+                                {{ row.available === false ? 'Show' : 'Hide' }}
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="filteredDoctors.length === 0">
+                        <td colspan="5" class="text-center py-5">
+                            <div class="opacity-50 mb-2">
+                                <i class="bi bi-emoji-frown display-4 text-secondary"></i>
+                            </div>
+                            <h5 class="fw-bold text-muted">No doctors found</h5>
+                            <p class="small text-muted">Try adjusting your search query.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

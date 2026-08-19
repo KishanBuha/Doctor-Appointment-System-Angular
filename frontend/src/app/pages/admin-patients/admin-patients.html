@@ -1,0 +1,82 @@
+<div class="container py-4">
+    
+    <div class="page-header shadow-sm d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h4 class="fw-bold text-dark mb-1">Registered Patients</h4>
+            <p class="text-muted small mb-0">View and manage all patient accounts</p>
+        </div>
+        
+        <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fw-bold border border-success border-opacity-25">
+                Total Patients: {{ patients.length }}
+            </span>
+        </div>
+    </div>
+
+    <div class="content-card shadow-sm">
+        
+        <div class="p-4 border-bottom bg-white d-flex align-items-center">
+            <h6 class="fw-bold text-secondary mb-0 text-uppercase small ls-1">Patient List</h6>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4 py-3">#</th>
+                        <th class="py-3">Patient Profile</th>
+                        <th class="py-3">Contact Email</th>
+                        <th class="py-3">Account Status</th>
+                        <th class="text-end pe-4 py-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of patients; let i = index">
+                        <td class="ps-4 py-3 text-muted fw-bold small">{{ i + 1 }}</td>
+
+                        <td class="py-3">
+                            <div class="d-flex align-items-center">
+                                <div class="patient-avatar me-3">
+                                    {{ p.name.charAt(0).toUpperCase() }}
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0">{{ p.name }}</h6>
+                                    <small class="text-muted" *ngIf="p.phone">{{ p.phone }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="py-3">
+                            <div class="d-flex align-items-center text-muted small fw-medium">
+                                <i class="bi bi-envelope me-2 text-primary opacity-50"></i> 
+                                {{ p.email }}
+                            </div>
+                        </td>
+
+                        <td class="py-3">
+                            <span class="badge bg-light text-dark border px-3 py-1 rounded-pill">
+                                <i class="bi bi-check-circle-fill text-success me-1"></i> Active
+                            </span>
+                        </td>
+
+                        <td class="text-end pe-4 py-3">
+                            <button class="btn btn-sm btn-delete shadow-sm" (click)="deletePatient(p._id)" title="Remove Account">
+                                <i class="bi bi-trash3 me-1"></i> Remove
+                            </button>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="patients.length === 0">
+                        <td colspan="5" class="text-center py-5">
+                            <div class="opacity-50 mb-2">
+                                <i class="bi bi-people display-4 text-secondary"></i>
+                            </div>
+                            <h5 class="fw-bold text-muted">No patients found</h5>
+                            <p class="small text-muted">New registrations will appear here.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

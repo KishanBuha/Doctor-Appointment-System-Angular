@@ -1,0 +1,89 @@
+<div class="container py-5">
+    
+    <div *ngIf="loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2 text-muted">Loading doctor details...</p>
+    </div>
+
+    <div *ngIf="!loading && !doctorInfo" class="text-center py-5">
+        <div class="alert alert-warning d-inline-block px-4">
+            <i class="bi bi-exclamation-triangle me-2"></i> Doctor not found or unavailable.
+        </div>
+        <br>
+        <button class="btn btn-outline-dark mt-3" routerLink="/doctors">Back to List</button>
+    </div>
+
+    <div class="row justify-content-center" *ngIf="!loading && doctorInfo">
+        <div class="col-lg-8">
+            
+            <div class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden">
+                <div class="d-flex align-items-center p-4 bg-white">
+                    <img [src]="doctorInfo.image || 'assets/default-doctor.png'" 
+                         class="rounded-3 me-4" 
+                         style="width: 100px; height: 100px; object-fit: cover; background: #e0e7ff;">
+                    
+                    <div>
+                        <h4 class="fw-bold text-dark mb-1">Dr. {{ doctorInfo.name }}</h4>
+                        <span class="badge bg-primary bg-opacity-10 text-primary mb-2">
+                            {{ doctorInfo.speciality }}
+                        </span>
+                        <p class="text-muted small mb-0">
+                            {{ doctorInfo.degree }} • {{ doctorInfo.experience }} Years Experience
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+                <h5 class="fw-bold text-dark mb-4">Book Your Visit</h5>
+                
+                <div class="mb-4">
+                    <label class="form-label text-muted small fw-bold text-uppercase">Select Date</label>
+                    <input type="date" class="form-control form-control-lg rounded-3" 
+                           [(ngModel)]="selectedDate" 
+                           (change)="fetchSlots()" 
+                           [min]="todayDate">
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label text-muted small fw-bold text-uppercase mb-3">Available Slots</label>
+                    
+                    <div class="d-flex flex-wrap gap-2" *ngIf="availableSlots.length > 0; else noSlots">
+                        <div *ngFor="let slot of availableSlots">
+                            <input type="radio" 
+                                   class="btn-check" 
+                                   name="timeSlot" 
+                                   [id]="slot" 
+                                   [value]="slot" 
+                                   [(ngModel)]="selectedTime"
+                                   [disabled]="bookedSlots.includes(slot)">
+                            
+                            <label class="btn btn-outline-primary rounded-pill px-3 py-2" 
+                                   [for]="slot"
+                                   [class.text-decoration-line-through]="bookedSlots.includes(slot)"
+                                   [class.opacity-50]="bookedSlots.includes(slot)">
+                                {{ slot }}
+                            </label>
+                        </div>
+                    </div>
+
+                    <ng-template #noSlots>
+                        <div class="alert alert-light text-center border-0 py-4">
+                            <i class="bi bi-calendar-x text-muted fs-1 d-block mb-2"></i>
+                            <p class="text-muted mb-0">No slots available for this date.</p>
+                        </div>
+                    </ng-template>
+                </div>
+
+                <button class="btn btn-primary w-100 py-3 rounded-pill fw-bold fs-5 shadow-sm"
+                        [disabled]="!selectedTime"
+                        (click)="bookAppointment()">
+                    Confirm Booking
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

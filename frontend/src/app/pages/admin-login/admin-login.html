@@ -1,0 +1,42 @@
+<div class="minimal-bg min-vh-100 d-flex align-items-center justify-content-center p-3">
+    <div class="card login-card border-0 shadow-lg rounded-4 overflow-hidden" style="max-width: 450px; width: 100%;">
+        <div class="card-body p-5">
+            
+            <div class="text-center mb-5">
+                <div class="bg-primary bg-opacity-10 text-primary d-inline-flex align-items-center justify-content-center rounded-circle mb-3" style="width: 70px; height: 70px;">
+                    <i class="bi bi-shield-check" style="font-size: 2.5rem;"></i>
+                </div>
+                <h3 class="fw-bold text-dark mb-1">Admin Portal</h3>
+                <p class="text-muted small">Sign in to manage Global Hospital</p>
+            </div>
+
+            <form (ngSubmit)="login()">
+                
+                <div class="form-floating mb-3 custom-floating">
+                    <input type="email" class="form-control fw-semibold" id="emailInput" [(ngModel)]="email" name="email" placeholder="name@example.com" required>
+                    <label for="emailInput" class="text-muted"><i class="bi bi-envelope me-2"></i>Email address</label>
+                </div>
+                
+                <div class="form-floating mb-4 custom-floating">
+                    <input type="password" class="form-control fw-semibold" id="passwordInput" [(ngModel)]="password" name="password" placeholder="Password" required>
+                    <label for="passwordInput" class="text-muted"><i class="bi bi-key me-2"></i>Password</label>
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 py-3 rounded-3 fw-bold fs-6 login-btn mb-4">
+                    Login to Dashboard
+                </button>
+            </form>
+
+            <div class="d-flex justify-content-center align-items-center gap-3 pt-3 border-top border-light">
+                <a routerLink="/admin-register" class="text-decoration-none small text-muted fw-semibold hover-primary">
+                    <i class="bi bi-person-plus me-1"></i> Register
+                </a>
+                <span class="text-muted opacity-25">|</span>
+                <a routerLink="/" class="text-decoration-none small text-muted fw-semibold hover-primary">
+                    <i class="bi bi-house me-1"></i> Home
+                </a>
+            </div>
+            
+        </div>
+    </div>
+</div>

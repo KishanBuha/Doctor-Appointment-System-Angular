@@ -1,0 +1,23 @@
+.nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    padding: 0.5rem 1rem !important;
+    border-radius: 50px;
+}
+
+.nav-link:hover {
+    color: #3b82f6 !important;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.nav-link.active {
+    color: #fff !important;
+    background: #3b82f6;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.navbar-brand {
+    font-size: 1.25rem;
+    letter-spacing: -0.5px;
+}

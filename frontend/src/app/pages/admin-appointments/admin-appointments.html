@@ -1,0 +1,103 @@
+<div class="container py-4">
+    
+    <div class="page-header shadow-sm d-flex flex-wrap justify-content-between align-items-center gap-3">
+        <div>
+            <h4 class="fw-bold text-dark mb-1">All Appointments</h4>
+            <p class="text-muted small mb-0">Track and manage patient bookings</p>
+        </div>
+        
+        <div class="d-flex align-items-center gap-3">
+            <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill fw-bold border border-primary border-opacity-25">
+                Total Bookings: {{ appointments.length }}
+            </span>
+        </div>
+    </div>
+
+    <div class="content-card shadow-sm">
+        
+        <div class="p-4 border-bottom bg-white d-flex align-items-center justify-content-between">
+            <h6 class="fw-bold text-secondary mb-0 text-uppercase small ls-1">Booking List</h6>
+        </div>
+        
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4 py-3">Patient Details</th>
+                        <th class="py-3">Doctor Assigned</th>
+                        <th class="py-3">Date & Time</th>
+                        <th class="py-3">Status</th>
+                        <th class="text-end pe-4 py-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let appt of appointments" class="border-bottom">
+                        
+                        <td class="ps-4 py-3">
+                            <div class="d-flex align-items-center">
+                                <div class="user-avatar shadow-sm">
+                                    {{ appt.userData?.name?.charAt(0).toUpperCase() || 'U' }}
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold text-dark mb-0">{{ appt.userData?.name || 'Unknown' }}</h6>
+                                    <small class="text-muted" style="font-size: 0.8rem;">{{ appt.userData?.email }}</small>
+                                </div>
+                            </div>
+                        </td>
+
+                        <td class="py-3">
+                            <div class="d-flex align-items-center">
+                                <div class="doc-icon">
+                                    <i class="bi bi-person-fill-add"></i>
+                                </div>
+                                <div class="fw-semibold text-dark small">Dr. {{ appt.docData?.name }}</div>
+                            </div>
+                        </td>
+
+                        <td class="py-3">
+                            <div class="fw-bold text-dark small">{{ appt.slotDate }}</div>
+                            <div class="text-muted small"><i class="bi bi-clock me-1"></i>{{ appt.slotTime }}</div>
+                        </td>
+
+                        <td class="py-3">
+                            <span *ngIf="appt.cancelled" class="status-badge status-cancelled">
+                                <i class="bi bi-x-circle-fill"></i> Cancelled
+                            </span>
+                            
+                            <span *ngIf="appt.isCompleted" class="status-badge status-completed">
+                                <i class="bi bi-check-circle-fill"></i> Completed
+                            </span>
+                            
+                            <span *ngIf="!appt.cancelled && !appt.isCompleted" class="status-badge status-pending">
+                                <i class="bi bi-hourglass-split"></i> Pending
+                            </span>
+                        </td>
+
+                        <td class="text-end pe-4 py-3">
+                            <button *ngIf="!appt.cancelled && !appt.isCompleted" 
+                                    class="btn btn-sm btn-cancel shadow-sm" 
+                                    (click)="cancelAppointment(appt._id)" 
+                                    title="Cancel Appointment">
+                                <i class="bi bi-x-lg me-1"></i> Cancel
+                            </button>
+                            
+                            <span *ngIf="appt.cancelled || appt.isCompleted" class="text-muted small fst-italic opacity-50">
+                                No Actions
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr *ngIf="appointments.length === 0">
+                        <td colspan="5" class="text-center py-5">
+                            <div class="opacity-50 mb-2">
+                                <i class="bi bi-calendar-x display-4 text-secondary"></i>
+                            </div>
+                            <h5 class="fw-bold text-muted">No appointments found</h5>
+                            <p class="small text-muted">Bookings will appear here once scheduled.</p>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
